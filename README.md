@@ -3,8 +3,6 @@
 > **Final Project** untuk training **Advanced Flutter State Management with BLoC**.  
 > Aplikasi produktivitas kolaboratif production-grade: workspace, Kanban board realtime, search dengan debounce, optimistic update, offline-first, dan Role-Based Access Control — semua diorkestrasi dengan BLoC.
 
-Silabus lengkap: [`syllabus.md`](/Users/rumahcoding/Projects/Courses/Advanced%20Flutter%20State%20Management%20with%20BLoC/syllabus.md) (12 modul) · Materi: `materi/01-architecture-setup` → `materi/12-home-polish`
-
 ---
 
 ## ✨ Demo Singkat
@@ -20,17 +18,17 @@ Silabus lengkap: [`syllabus.md`](/Users/rumahcoding/Projects/Courses/Advanced%20
 
 ## 🧭 Fitur Utama
 
-| Fitur | Deskripsi | BLoC Highlight |
-|---|---|---|
-| **Role-Based Auth** | Login, session, purge state saat logout | `AuthBloc` ↔ `WorkspaceBloc` / `TaskBloc` via `BlocListener` |
-| **Real-Time Kanban Board** | Kolom `todo` / `doing` / `done`, drag & move | `emit.forEach` + `Stream<List<Task>>` |
-| **Advanced Search** | Cari task tanpa spam request | `debounceTime(300ms)` + `restartable()` |
-| **Optimistic UI** | Check "Done" terasa instant | Emit optimis → `setDone()` → rollback on error |
-| **Offline-First** | Lihat & interaksi tanpa internet | `Hive` cache + `flushSyncQueue()` |
-| **Error Handling Terstandar** | Network / Auth / Server dibedakan | `AppException` → `Failure` → snackbar / retry / fallback |
-| **Supabase Sync** | Cross-device realtime (opt-in) | `TaskSupabaseDatasource` dengan kontrak stream yang sama |
-| **RBAC 3 Lapis** | Hide UI + guard route + reject di BLoC | `RoleGate`, `authRedirect`, validasi di `TaskBloc` |
-| **Polished UI** | Login aesthetic + board yang readable | Tanpa package tambahan, `buildWhen` hemat rebuild |
+| Fitur                         | Deskripsi                                    | BLoC Highlight                                               |
+| ----------------------------- | -------------------------------------------- | ------------------------------------------------------------ |
+| **Role-Based Auth**           | Login, session, purge state saat logout      | `AuthBloc` ↔ `WorkspaceBloc` / `TaskBloc` via `BlocListener` |
+| **Real-Time Kanban Board**    | Kolom `todo` / `doing` / `done`, drag & move | `emit.forEach` + `Stream<List<Task>>`                        |
+| **Advanced Search**           | Cari task tanpa spam request                 | `debounceTime(300ms)` + `restartable()`                      |
+| **Optimistic UI**             | Check "Done" terasa instant                  | Emit optimis → `setDone()` → rollback on error               |
+| **Offline-First**             | Lihat & interaksi tanpa internet             | `Hive` cache + `flushSyncQueue()`                            |
+| **Error Handling Terstandar** | Network / Auth / Server dibedakan            | `AppException` → `Failure` → snackbar / retry / fallback     |
+| **Supabase Sync**             | Cross-device realtime (opt-in)               | `TaskSupabaseDatasource` dengan kontrak stream yang sama     |
+| **RBAC 3 Lapis**              | Hide UI + guard route + reject di BLoC       | `RoleGate`, `authRedirect`, validasi di `TaskBloc`           |
+| **Polished UI**               | Login aesthetic + board yang readable        | Tanpa package tambahan, `buildWhen` hemat rebuild            |
 
 ---
 
@@ -80,6 +78,7 @@ lib/
 ## 🧠 BLoC — Apa yang Diterapkan
 
 ### State Immutability & Event Modeling
+
 - `equatable` untuk value equality.
 - `freezed` untuk `TaskModel`, `UserModel`, `WorkspaceModel` — immutable, `copyWith`, union type.
 - State & Event rigid (`TaskStatus: initial | loading | saving | loaded | failure`).
@@ -165,18 +164,18 @@ UI: SnackBar + action Retry, atau ErrorView / EmptyState
 
 ## 🛠️ Tech Stack
 
-| Kategori | Package | Versi | Kegunaan |
-|---|---|---|---|
-| State | `flutter_bloc` | ^9.1.1 | Bloc / Cubit / BlocListener / BlocBuilder |
-| Concurrency | `bloc_concurrency` | ^0.3.0 | `droppable`, `restartable`, `concurrent` |
-| Reactive | `rxdart` | ^0.28.0 | `debounceTime` |
-| DI | `get_it` | ^9.3.0 | Service locator (`sl`) |
-| Immutability | `equatable` | ^3.0.0 | Value equality |
-| Codegen | `freezed_annotation` + `freezed` + `json_annotation` + `json_serializable` + `build_runner` | ^3.x / ^4.x / ^6.x | Model immutable & JSON |
-| Local Cache | `hive` + `hive_flutter` | ^2.2.3 | Offline-first store (`Box tasksync`) |
-| Navigation | `go_router` | ^18.0.2 | Auth-guarded routing |
-| Backend (opt-in) | `supabase_flutter` | ^2.18.0 | Auth + Postgres + Realtime |
-| Lint | `flutter_lints` | ^6.0.0 | Analyzer |
+| Kategori         | Package                                                                                     | Versi              | Kegunaan                                  |
+| ---------------- | ------------------------------------------------------------------------------------------- | ------------------ | ----------------------------------------- |
+| State            | `flutter_bloc`                                                                              | ^9.1.1             | Bloc / Cubit / BlocListener / BlocBuilder |
+| Concurrency      | `bloc_concurrency`                                                                          | ^0.3.0             | `droppable`, `restartable`, `concurrent`  |
+| Reactive         | `rxdart`                                                                                    | ^0.28.0            | `debounceTime`                            |
+| DI               | `get_it`                                                                                    | ^9.3.0             | Service locator (`sl`)                    |
+| Immutability     | `equatable`                                                                                 | ^3.0.0             | Value equality                            |
+| Codegen          | `freezed_annotation` + `freezed` + `json_annotation` + `json_serializable` + `build_runner` | ^3.x / ^4.x / ^6.x | Model immutable & JSON                    |
+| Local Cache      | `hive` + `hive_flutter`                                                                     | ^2.2.3             | Offline-first store (`Box tasksync`)      |
+| Navigation       | `go_router`                                                                                 | ^18.0.2            | Auth-guarded routing                      |
+| Backend (opt-in) | `supabase_flutter`                                                                          | ^2.18.0            | Auth + Postgres + Realtime                |
+| Lint             | `flutter_lints`                                                                             | ^6.0.0             | Analyzer                                  |
 
 Dart SDK `^3.13.4` · Flutter `>=3.22`.
 
@@ -235,10 +234,10 @@ Skema minimal Supabase: `profiles`, `workspaces`, `tasks` + RLS + Realtime enabl
 
 ### Akun Demo
 
-| Role | Email | Password | Hak Akses |
-|---|---|---|---|
-| Admin | `admin@tasksync.dev` | `admin@tasksync.dev` | create, delete, rename, move |
-| Member | `member@tasksync.dev` | `member@tasksync.dev` | read & move saja |
+| Role   | Email                 | Password              | Hak Akses                    |
+| ------ | --------------------- | --------------------- | ---------------------------- |
+| Admin  | `admin@tasksync.dev`  | `admin@tasksync.dev`  | create, delete, rename, move |
+| Member | `member@tasksync.dev` | `member@tasksync.dev` | read & move saja             |
 
 > Pada mode in-memory, login diterima untuk kedua akun tersebut. Pada mode Supabase, buat user yang sama di Supabase Auth.
 
@@ -254,20 +253,20 @@ flutter build web --release
 
 ## 🗺️ Pemetaan Silabus → Implementasi
 
-| Modul | Topik | Implementasi di TaskSync |
-|---|---|---|
-| 1 | Advanced Architecture & Project Setup | `lib/app/`, `core/theme/ThemeCubit`, `core/widgets` |
-| 2 | State Immutability & Event Modeling | `task_model.dart`, `user_model.dart`, `workspace_model.dart` (freezed) |
-| 3 | Concurrency & Event Transformers | `TaskBloc` — `droppable`/`restartable`/`debounceRestartable`/`concurrent` |
-| 4 | DI & Multi-BLoC Communication | `get_it` di `injection.dart`, `BlocListener<AuthBloc>` purge |
-| 5 | Real-Time Streams | `watchBoard()` + `emit.forEach` di `TaskBloc._onBoardSubscribed` |
-| 6 | Error Handling & UI Feedback | `exceptions.dart` → `failures.dart` → `SnackBar` retry / `ErrorView` |
-| 7 | Optimistic & Offline | `_onMarkedDone` optimistic + `TaskLocalDatasource` + `flushSyncQueue()` |
-| 8 | Testing & QA | `bloc_test` + `mocktail` — `auth_bloc_test.dart`, `task_bloc_test.dart` |
-| 9 | Supabase Backend | `TaskSupabaseDatasource`, `SupabaseAuthRemoteDatasource`, opt-in switch |
-| 10 | Role-Based Access | `UserRole`, `isRoleAllowed()`, `RoleGate`, guard router & BLoC |
-| 11 | Login Polish | `LoginPage` — gradient, Card, logo fallback, visibility toggle |
-| 12 | Home/Board Polish | `KanbanBoard` — header workspace, role badge, count per kolom, `buildWhen` |
+| Modul | Topik                                 | Implementasi di TaskSync                                                   |
+| ----- | ------------------------------------- | -------------------------------------------------------------------------- |
+| 1     | Advanced Architecture & Project Setup | `lib/app/`, `core/theme/ThemeCubit`, `core/widgets`                        |
+| 2     | State Immutability & Event Modeling   | `task_model.dart`, `user_model.dart`, `workspace_model.dart` (freezed)     |
+| 3     | Concurrency & Event Transformers      | `TaskBloc` — `droppable`/`restartable`/`debounceRestartable`/`concurrent`  |
+| 4     | DI & Multi-BLoC Communication         | `get_it` di `injection.dart`, `BlocListener<AuthBloc>` purge               |
+| 5     | Real-Time Streams                     | `watchBoard()` + `emit.forEach` di `TaskBloc._onBoardSubscribed`           |
+| 6     | Error Handling & UI Feedback          | `exceptions.dart` → `failures.dart` → `SnackBar` retry / `ErrorView`       |
+| 7     | Optimistic & Offline                  | `_onMarkedDone` optimistic + `TaskLocalDatasource` + `flushSyncQueue()`    |
+| 8     | Testing & QA                          | `bloc_test` + `mocktail` — `auth_bloc_test.dart`, `task_bloc_test.dart`    |
+| 9     | Supabase Backend                      | `TaskSupabaseDatasource`, `SupabaseAuthRemoteDatasource`, opt-in switch    |
+| 10    | Role-Based Access                     | `UserRole`, `isRoleAllowed()`, `RoleGate`, guard router & BLoC             |
+| 11    | Login Polish                          | `LoginPage` — gradient, Card, logo fallback, visibility toggle             |
+| 12    | Home/Board Polish                     | `KanbanBoard` — header workspace, role badge, count per kolom, `buildWhen` |
 
 ---
 
@@ -302,18 +301,18 @@ dart run build_runner watch --delete-conflicting-outputs
 
 ## 🔧 Troubleshooting
 
-| Masalah | Solusi |
-|---|---|
-| `*.freezed.dart` / `*.g.dart` missing | `dart run build_runner build --delete-conflicting-outputs` |
-| Board stuck `loading` | Cek `watchBoard` stream — pastikan `TaskBoardSubcsribed` ter-dispatch setelah login (lihat `BlocListener` di `app.dart`) |
-| Supabase tidak sync | Pastikan `supabaseConfigured == true`, RLS memperbolehkan `select`/`insert`/`update` untuk user login, dan Realtime enabled di dashboard Supabase |
-| Hive error di web | `Hive.initFlutter()` butuh `hive_flutter`; sudah di-setup di `main.dart` |
+| Masalah                               | Solusi                                                                                                                                            |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `*.freezed.dart` / `*.g.dart` missing | `dart run build_runner build --delete-conflicting-outputs`                                                                                        |
+| Board stuck `loading`                 | Cek `watchBoard` stream — pastikan `TaskBoardSubcsribed` ter-dispatch setelah login (lihat `BlocListener` di `app.dart`)                          |
+| Supabase tidak sync                   | Pastikan `supabaseConfigured == true`, RLS memperbolehkan `select`/`insert`/`update` untuk user login, dan Realtime enabled di dashboard Supabase |
+| Hive error di web                     | `Hive.initFlutter()` butuh `hive_flutter`; sudah di-setup di `main.dart`                                                                          |
 
 ---
 
 ## 📄 Lisensi
 
-Private — untuk keperluan training internal. Jangan publish ke `pub.dev` (`publish_to: none`).
+Private — untuk keperluan training internal.
 
 ---
 
