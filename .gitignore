@@ -1,0 +1,90 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+Thumbs.db
+.atom/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# oh-my-opencode / OMO - local AI agent state (never commit)
+.omo/
+.opencode/
+.claude/
+.cursor/
+.opencode.local.*
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code - uncomment if you want to ignore workspace settings
+#.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+.build/
+build/
+**/build/
+/coverage/
+coverage/
+lcov.info
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+android/.gradle/
+android/app/build/
+android/local.properties
+android/key.properties
+ios/Pods/
+ios/.generated/
+macos/Pods/
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Exceptions to above rules.
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+# Widget Preview related
+.widget_preview/
+
+# Temporary & OS
+*.tmp
+*.temp
+*.bak
+.cache/
+tmp/
